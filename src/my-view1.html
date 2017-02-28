@@ -1,0 +1,95 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/paper-subheader/paper-subheader.html">
+<link rel="import" href="../bower_components/poly-filter/poly-filter.html">
+<link rel="import" href="../bower_components/iron-grid/iron-grid.html">
+<link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/poly-filter/demo/demo-list.html">
+
+
+<link rel="import" href="al-pulse-template.html">
+<link rel="import" href="al-ajax-pulse.html">
+<link rel="import" href="avatars.html">
+<link rel="import" href="shared-styles.html">
+
+
+  <dom-module id="my-view1">
+
+  <template>
+
+      <style include="shared-styles"></style>
+
+          <al-ajax-pulse pulse-templates="{{pulseTemplates}}"></al-ajax-pulse>
+          <!--on-response="_handResponse" too eqrly for the DOM-->
+
+          <paper-toolbar class="subheader">
+            <span class="title">Out-of-box Pulse templates</span>
+            <paper-input label="search" value="{{filterString}}"></paper-input>
+            <paper-icon-button icon="refresh"></paper-icon-button>
+            <paper-icon-button icon="add">+</paper-icon-button>
+            <paper-icon-button icon="menu"></paper-icon-button>
+          </paper-toolbar>
+
+          <div class="vertical-section">
+            <poly-filter
+              array-to-filter="[[pulseTemplates]]"
+              filter="[[filterString]]"
+              filtered-array="{{filteredTemplates}}"
+              filterDebounceDelay="300">
+            </poly-filter>
+          </div>
+
+          <iron-grid id="grid">
+            <template is="dom-repeat" initial-count="4" on-dom-change="_refreshGrid" items="[[filteredTemplates]]" >
+              <!--on-dom-change="_refreshGrid" - Too many request-->
+               <div class="xs12 s6 m4 l3" style="padding-bottom:25px">
+                  <al-pulse-template item="[[item]]"></al-pulse-template>
+                </div>
+            </template>
+          </iron-grid>
+
+    </template>
+
+  <script>
+
+      Polymer({
+
+        is:"my-view1",
+
+        properties:{
+
+        /*items: {
+              type: Array,
+              value: function() {return [];}
+          }*/
+        },
+
+        //observers:['_itemsAddedOrRemoved(items.splices)'],
+
+        _itemsAddedOrRemoved: function (changeRecord) {
+          console.log('_itemsAddedOrRemoved: - Phase 1');
+        },
+
+        _handResponse:function() {
+            console.log('handResponse'+ this.$.grid.applyResponsive);
+        },
+
+        _refreshGrid: function() {
+          this.debounce('refreshGrid', function () {
+              console.log('_refreshGrid' + this.$.grid.applyResponsive);
+              this.$.grid.applyResponsive(this.$.grid.currentScreenformat, this.$.grid.currentScreenformat);
+            }, 100);
+          //console.log('_refreshGrid' + this.$.grid.applyResponsive);
+          //console.log(this.$.grid.currentScreenformat, this.$.grid.currentScreenformat);
+
+        }
+
+
+      });
+  </script>
+
+</dom-module>

@@ -1,0 +1,912 @@
+<!--
+@license
+Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-chip/paper-chip.html">
+<link rel="import" href="../bower_components/paper-subheader/paper-subheader.html">
+<link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../bower_components/poly-filter/poly-filter.html">
+<link rel="import" href="../bower_components/poly-filter/demo/demo-list.html">
+<link rel="import" href="../bower_components/iron-grid/iron-grid.html">
+<link rel="import" href="../bower_components/iron-accordions/iron-accordions.html">
+<link rel="import" href="../bower_components/iron-accordions/iron-accordion.html">
+<link rel="import" href="../bower_components/star-rating/star-rating.html">
+<link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../bower_components/grid-element/grid-element.html">
+<link rel="import" href="shared-styles.html">
+
+
+<dom-module is="dom-bind" id="my-view2">
+  <template>
+    <style include="shared-styles">
+      :host {
+        display: block;
+        padding: 10px;
+      }
+
+      .box-container{
+        padding-bottom: 25px;
+      }
+
+      .container{
+        padding: 15px 0px 0 15px;
+      }
+      .card-survey{
+        padding: 0 0 0 15px;
+      }
+    </style>
+
+
+    <style is="custom-style">
+        paper-toolbar.subheader {
+          margin: 20px 0px 40px 0px;
+          --paper-toolbar-background: #adc5ec;
+          --paper-toolbar-title: {
+            font-style: italic;
+            font-weight: bold;
+          };
+        }
+        paper-icon-button.favorite {
+            padding:5px;
+            --iron-icon: {
+                background-color: #12c500;
+                color:#333333;
+                padding:5px;
+            };
+        }
+
+        paper-icon-button {
+            width: 48px;
+            height: 48px;
+            --iron-icon: {
+              border-radius: 50%;
+              background-color: #adc5ec;
+            };
+        }
+
+         paper-fab {
+            display: inline-block;
+            margin: 8px;
+          }
+
+          paper-fab[mini] {
+            --paper-fab-background: #FF5722;
+          }
+
+          paper-fab[label] {
+            font-size: 20px;
+            --paper-fab-background: #2196F3;
+          }
+
+
+    </style>
+
+          <paper-toolbar class="subheader">
+            <span class="title">Out-of-box Pulse templates</span>
+            <paper-input label="search" value="{{filterString}}"></paper-input>
+            <!--<input type="string" value="{{filterString::input}}" autofocus>-->
+            <paper-icon-button icon="refresh"></paper-icon-button>
+            <paper-icon-button icon="add">+</paper-icon-button>
+            <paper-icon-button icon="menu"></paper-icon-button>
+          </paper-toolbar>
+
+
+            <div class="vertical-section">
+
+                <poly-filter
+                  array-to-filter="[[wwf]]"
+                  filter="[[filterString]]"
+                  filtered-array="{{filteredWwfInteractive}}">
+                </poly-filter>
+
+                <!--<demo-list items="[[filteredWwfInteractive]]"></demo-list>-->
+
+              </div>
+
+
+          <iron-grid>
+
+              <div class="xs12 s6 m4 l3" style="padding-bottom:25px">
+
+                <paper-card>
+
+                  <paper-toolbar style="background:#e05f98">
+                      <div title><b>Agent Group Status</b><br>
+                      <i>Refresh rate - 60s / Regular</i></div>
+                  </paper-toolbar>
+
+                 <div class="container">
+                     <paper-chip single-line>
+                      <iron-icon slot="icon" icon="avatars:avatar-1"></iron-icon>
+                      <div slot="label">Agent Group</div>
+                    </paper-chip>
+                    <paper-chip single-line>
+                      <iron-icon slot="icon" icon="avatars:avatar-1"></iron-icon>
+                      <div slot="label">Place Group</div>
+                    </paper-chip>
+                  </div>
+
+                  <div class="card-content">
+                    Agents are provided logins or devices and are assigned to media that match their skills. With this report, the supervisor can ensure the agents are logged in where they should be and managing the media for which they are responsible.
+
+                    <iron-accordions id="nested">
+                      <iron-accordion>
+                        <h3 header>Available Statistics <iron-icon icon="icons:info"></iron-icon></h3>
+
+                        <div class="horizontal layout wrap">
+
+                              <div class="s6">Logged In</div>
+                              <div class="s6">Ready</div>
+                              <div class="s6">Not Ready</div>
+                              <div class="s6">Break</div>
+                              <div class="s6">Lunch</div>
+                              <div class="s6">Offline</div>
+                              <div class="s6">ACW</div>
+                              <div class="s6">Consult</div>
+                              <div class="s6">Dialing</div>
+                              <div class="s6">On Hold</div>
+                              <div class="s6">Inbound</div>
+                              <div class="s6">Outbound</div>
+
+                              <div class="s6">Internal</div>
+                              <div class="s6">Ringing</div>
+                              <div class="s6">Logged Out</div>
+                              <div class="s6">% Ready</div>
+                              <div class="s6">% Not Ready</div>
+
+                              <div class="s6">% Inbound</div>
+                              <div class="s6">Working</div>
+                        </div>
+
+                      </iron-accordion>
+                    </iron-accordions>
+
+                  </div>
+
+                  <div class="card-actions">
+                    <paper-button>Share</paper-button>
+                    <paper-button>Explore!</paper-button>
+                    <star-rating rate="4"></star-rating>
+                  </div>
+
+                </paper-card>
+
+              </div>
+
+
+                <div class="xs12 s6 m4 l3" style="padding-bottom:25px">
+
+                <paper-card>
+
+                  <paper-toolbar style="background:#e05f98">
+                      <div title><b>Agent Group Status</b><br>
+                      <i>Refresh rate - 60s / Regular</i></div>
+                  </paper-toolbar>
+
+                 <div class="container">
+                     <paper-chip single-line>
+                      <iron-icon slot="icon" icon="avatars:avatar-1"></iron-icon>
+                      <div slot="label">Agent Group</div>
+                    </paper-chip>
+                    <paper-chip single-line>
+                      <iron-icon slot="icon" icon="avatars:avatar-1"></iron-icon>
+                      <div slot="label">Place Group</div>
+                    </paper-chip>
+                  </div>
+
+                  <div class="card-content">
+                    Agents are provided logins or devices and are assigned to media that match their skills. With this report, the supervisor can ensure the agents are logged in where they should be and managing the media for which they are responsible.
+
+                    <iron-accordions id="nested">
+                      <iron-accordion>
+                        <h3 header>Available Statistics <iron-icon icon="icons:info"></iron-icon></h3>
+
+                        <div class="horizontal layout wrap">
+
+                              <div class="s6">Logged In</div>
+                              <div class="s6">Ready</div>
+                              <div class="s6">Not Ready</div>
+                              <div class="s6">Break</div>
+                              <div class="s6">Lunch</div>
+                              <div class="s6">Offline</div>
+                              <div class="s6">ACW</div>
+                              <div class="s6">Consult</div>
+                              <div class="s6">Dialing</div>
+                              <div class="s6">On Hold</div>
+                              <div class="s6">Inbound</div>
+                              <div class="s6">Outbound</div>
+
+                              <div class="s6">Internal</div>
+                              <div class="s6">Ringing</div>
+                              <div class="s6">Logged Out</div>
+                              <div class="s6">% Ready</div>
+                              <div class="s6">% Not Ready</div>
+
+                              <div class="s6">% Inbound</div>
+                              <div class="s6">Working</div>
+                        </div>
+
+                      </iron-accordion>
+                    </iron-accordions>
+
+                  </div>
+
+                  <div class="card-actions">
+                    <paper-button>Share</paper-button>
+                    <paper-button>Explore!</paper-button>
+                    <star-rating rate="4"></star-rating>
+                  </div>
+
+                </paper-card>
+
+              </div>
+
+                <div class="xs12 s6 m4 l3" style="padding-bottom:25px">
+
+                <paper-card>
+
+                  <paper-toolbar style="background:#e05f98">
+                      <div title><b>Agent Group Status</b><br>
+                      <i>Refresh rate - 60s / Regular</i></div>
+                  </paper-toolbar>
+
+                 <div class="container">
+                     <paper-chip single-line>
+                      <iron-icon slot="icon" icon="avatars:avatar-1"></iron-icon>
+                      <div slot="label">Agent Group</div>
+                    </paper-chip>
+                    <paper-chip single-line>
+                      <iron-icon slot="icon" icon="avatars:avatar-1"></iron-icon>
+                      <div slot="label">Place Group</div>
+                    </paper-chip>
+                  </div>
+
+                  <div class="card-content">
+                    Agents are provided logins or devices and are assigned to media that match their skills. With this report, the supervisor can ensure the agents are logged in where they should be and managing the media for which they are responsible.
+
+                    <iron-accordions id="nested">
+                      <iron-accordion>
+                        <h3 header>Available Statistics <iron-icon icon="icons:info"></iron-icon></h3>
+
+                        <div class="horizontal layout wrap">
+
+                              <div class="s6">Logged In</div>
+                              <div class="s6">Ready</div>
+                              <div class="s6">Not Ready</div>
+                              <div class="s6">Break</div>
+                              <div class="s6">Lunch</div>
+                              <div class="s6">Offline</div>
+                              <div class="s6">ACW</div>
+                              <div class="s6">Consult</div>
+                              <div class="s6">Dialing</div>
+                              <div class="s6">On Hold</div>
+                              <div class="s6">Inbound</div>
+                              <div class="s6">Outbound</div>
+
+                              <div class="s6">Internal</div>
+                              <div class="s6">Ringing</div>
+                              <div class="s6">Logged Out</div>
+                              <div class="s6">% Ready</div>
+                              <div class="s6">% Not Ready</div>
+
+                              <div class="s6">% Inbound</div>
+                              <div class="s6">Working</div>
+                        </div>
+
+                      </iron-accordion>
+                    </iron-accordions>
+
+                  </div>
+
+                  <div class="card-actions">
+                    <paper-button>Share</paper-button>
+                    <paper-button>Explore!</paper-button>
+                    <star-rating rate="4"></star-rating>
+                  </div>
+
+                </paper-card>
+
+              </div>
+
+                <div class="xs12 s6 m4 l3" style="padding-bottom:25px">
+
+                <paper-card>
+
+                  <paper-toolbar style="background:#e05f98">
+                      <div title><b>Agent Group Status</b><br>
+                      <i>Refresh rate - 60s / Regular</i></div>
+                  </paper-toolbar>
+
+                 <div class="container">
+                     <paper-chip single-line>
+                      <iron-icon slot="icon" icon="avatars:avatar-1"></iron-icon>
+                      <div slot="label">Agent Group</div>
+                    </paper-chip>
+                    <paper-chip single-line>
+                      <iron-icon slot="icon" icon="avatars:avatar-1"></iron-icon>
+                      <div slot="label">Place Group</div>
+                    </paper-chip>
+                  </div>
+
+                  <div class="card-content">
+                    Agents are provided logins or devices and are assigned to media that match their skills. With this report, the supervisor can ensure the agents are logged in where they should be and managing the media for which they are responsible.
+
+                    <iron-accordions id="nested">
+                      <iron-accordion>
+                        <h3 header>Available Statistics <iron-icon icon="icons:info"></iron-icon></h3>
+
+                        <div class="horizontal layout wrap">
+
+                              <div class="s6">Logged In</div>
+                              <div class="s6">Ready</div>
+                              <div class="s6">Not Ready</div>
+                              <div class="s6">Break</div>
+                              <div class="s6">Lunch</div>
+                              <div class="s6">Offline</div>
+                              <div class="s6">ACW</div>
+                              <div class="s6">Consult</div>
+                              <div class="s6">Dialing</div>
+                              <div class="s6">On Hold</div>
+                              <div class="s6">Inbound</div>
+                              <div class="s6">Outbound</div>
+
+                              <div class="s6">Internal</div>
+                              <div class="s6">Ringing</div>
+                              <div class="s6">Logged Out</div>
+                              <div class="s6">% Ready</div>
+                              <div class="s6">% Not Ready</div>
+
+                              <div class="s6">% Inbound</div>
+                              <div class="s6">Working</div>
+                        </div>
+
+                      </iron-accordion>
+                    </iron-accordions>
+
+                  </div>
+
+                  <div class="card-actions">
+                    <paper-button>Share</paper-button>
+                    <paper-button>Explore!</paper-button>
+                    <star-rating rate="4"></star-rating>
+                  </div>
+
+                </paper-card>
+
+              </div>
+
+                <div class="xs12 s6 m4 l3" style="padding-bottom:25px">
+
+                <paper-card>
+
+                  <paper-toolbar style="background:#e05f98">
+                      <div title><b>Agent Group Status</b><br>
+                      <i>Refresh rate - 60s / Regular</i></div>
+                  </paper-toolbar>
+
+                 <div class="container">
+                     <paper-chip single-line>
+                      <iron-icon slot="icon" icon="avatars:avatar-1"></iron-icon>
+                      <div slot="label">Agent Group</div>
+                    </paper-chip>
+                    <paper-chip single-line>
+                      <iron-icon slot="icon" icon="avatars:avatar-1"></iron-icon>
+                      <div slot="label">Place Group</div>
+                    </paper-chip>
+                  </div>
+
+                  <div class="card-content">
+                    Agents are provided logins or devices and are assigned to media that match their skills. With this report, the supervisor can ensure the agents are logged in where they should be and managing the media for which they are responsible.
+
+                    <iron-accordions id="nested">
+                      <iron-accordion>
+                        <h3 header>Available Statistics <iron-icon icon="icons:info"></iron-icon></h3>
+
+                        <div class="horizontal layout wrap">
+
+                              <div class="s6">Logged In</div>
+                              <div class="s6">Ready</div>
+                              <div class="s6">Not Ready</div>
+                              <div class="s6">Break</div>
+                              <div class="s6">Lunch</div>
+                              <div class="s6">Offline</div>
+                              <div class="s6">ACW</div>
+                              <div class="s6">Consult</div>
+                              <div class="s6">Dialing</div>
+                              <div class="s6">On Hold</div>
+                              <div class="s6">Inbound</div>
+                              <div class="s6">Outbound</div>
+
+                              <div class="s6">Internal</div>
+                              <div class="s6">Ringing</div>
+                              <div class="s6">Logged Out</div>
+                              <div class="s6">% Ready</div>
+                              <div class="s6">% Not Ready</div>
+
+                              <div class="s6">% Inbound</div>
+                              <div class="s6">Working</div>
+                        </div>
+
+                      </iron-accordion>
+                    </iron-accordions>
+
+                  </div>
+
+                  <div class="card-actions">
+                    <paper-button>Share</paper-button>
+                    <paper-button>Explore!</paper-button>
+                    <star-rating rate="4"></star-rating>
+                  </div>
+
+                </paper-card>
+
+              </div>
+
+                <div class="xs12 s6 m4 l3" style="padding-bottom:25px">
+
+                <paper-card>
+
+                  <paper-toolbar style="background:#e05f98">
+                      <div title><b>Agent Group Status</b><br>
+                      <i>Refresh rate - 60s / Regular</i></div>
+                  </paper-toolbar>
+
+                 <div class="container">
+                     <paper-chip single-line>
+                      <iron-icon slot="icon" icon="avatars:avatar-1"></iron-icon>
+                      <div slot="label">Agent Group</div>
+                    </paper-chip>
+                    <paper-chip single-line>
+                      <iron-icon slot="icon" icon="avatars:avatar-1"></iron-icon>
+                      <div slot="label">Place Group</div>
+                    </paper-chip>
+                  </div>
+
+                  <div class="card-content">
+                    Agents are provided logins or devices and are assigned to media that match their skills. With this report, the supervisor can ensure the agents are logged in where they should be and managing the media for which they are responsible.
+
+                    <iron-accordions id="nested">
+                      <iron-accordion>
+                        <h3 header>Available Statistics <iron-icon icon="icons:info"></iron-icon></h3>
+
+                        <div class="horizontal layout wrap">
+
+                              <div class="s6">Logged In</div>
+                              <div class="s6">Ready</div>
+                              <div class="s6">Not Ready</div>
+                              <div class="s6">Break</div>
+                              <div class="s6">Lunch</div>
+                              <div class="s6">Offline</div>
+                              <div class="s6">ACW</div>
+                              <div class="s6">Consult</div>
+                              <div class="s6">Dialing</div>
+                              <div class="s6">On Hold</div>
+                              <div class="s6">Inbound</div>
+                              <div class="s6">Outbound</div>
+
+                              <div class="s6">Internal</div>
+                              <div class="s6">Ringing</div>
+                              <div class="s6">Logged Out</div>
+                              <div class="s6">% Ready</div>
+                              <div class="s6">% Not Ready</div>
+
+                              <div class="s6">% Inbound</div>
+                              <div class="s6">Working</div>
+                        </div>
+
+                      </iron-accordion>
+                    </iron-accordions>
+
+                  </div>
+
+                  <div class="card-actions">
+                    <paper-button>Share</paper-button>
+                    <paper-button>Explore!</paper-button>
+                    <star-rating rate="4"></star-rating>
+                  </div>
+
+                </paper-card>
+
+              </div>
+
+                <div class="xs12 s6 m4 l3" style="padding-bottom:25px">
+
+                <paper-card>
+
+                  <paper-toolbar style="background:#e05f98">
+                      <div title><b>Agent Group Status</b><br>
+                      <i>Refresh rate - 60s / Regular</i></div>
+                  </paper-toolbar>
+
+                 <div class="container">
+                     <paper-chip single-line>
+                      <iron-icon slot="icon" icon="avatars:avatar-1"></iron-icon>
+                      <div slot="label">Agent Group</div>
+                    </paper-chip>
+                    <paper-chip single-line>
+                      <iron-icon slot="icon" icon="avatars:avatar-1"></iron-icon>
+                      <div slot="label">Place Group</div>
+                    </paper-chip>
+                  </div>
+
+                  <div class="card-content">
+                    Agents are provided logins or devices and are assigned to media that match their skills. With this report, the supervisor can ensure the agents are logged in where they should be and managing the media for which they are responsible.
+
+                    <iron-accordions id="nested">
+                      <iron-accordion>
+                        <h3 header>Available Statistics <iron-icon icon="icons:info"></iron-icon></h3>
+
+                        <div class="horizontal layout wrap">
+
+                              <div class="s6">Logged In</div>
+                              <div class="s6">Ready</div>
+                              <div class="s6">Not Ready</div>
+                              <div class="s6">Break</div>
+                              <div class="s6">Lunch</div>
+                              <div class="s6">Offline</div>
+                              <div class="s6">ACW</div>
+                              <div class="s6">Consult</div>
+                              <div class="s6">Dialing</div>
+                              <div class="s6">On Hold</div>
+                              <div class="s6">Inbound</div>
+                              <div class="s6">Outbound</div>
+
+                              <div class="s6">Internal</div>
+                              <div class="s6">Ringing</div>
+                              <div class="s6">Logged Out</div>
+                              <div class="s6">% Ready</div>
+                              <div class="s6">% Not Ready</div>
+
+                              <div class="s6">% Inbound</div>
+                              <div class="s6">Working</div>
+                        </div>
+
+                      </iron-accordion>
+                    </iron-accordions>
+
+                  </div>
+
+                  <div class="card-actions">
+                    <paper-button>Share</paper-button>
+                    <paper-button>Explore!</paper-button>
+                    <star-rating rate="4"></star-rating>
+                  </div>
+
+                </paper-card>
+
+              </div>
+
+                <div class="xs12 s6 m4 l3" style="padding-bottom:25px">
+
+                <paper-card>
+
+                  <paper-toolbar style="background:#e05f98">
+                      <div title><b>Agent Group Status</b><br>
+                      <i>Refresh rate - 60s / Regular</i></div>
+                  </paper-toolbar>
+
+                 <div class="container">
+                     <paper-chip single-line>
+                      <iron-icon slot="icon" icon="avatars:avatar-1"></iron-icon>
+                      <div slot="label">Agent Group</div>
+                    </paper-chip>
+                    <paper-chip single-line>
+                      <iron-icon slot="icon" icon="avatars:avatar-1"></iron-icon>
+                      <div slot="label">Place Group</div>
+                    </paper-chip>
+                  </div>
+
+                  <div class="card-content">
+                    Agents are provided logins or devices and are assigned to media that match their skills. With this report, the supervisor can ensure the agents are logged in where they should be and managing the media for which they are responsible.
+
+                    <iron-accordions id="nested">
+                      <iron-accordion>
+                        <h3 header>Available Statistics <iron-icon icon="icons:info"></iron-icon></h3>
+
+                        <div class="horizontal layout wrap">
+
+                              <div class="s6">Logged In</div>
+                              <div class="s6">Ready</div>
+                              <div class="s6">Not Ready</div>
+                              <div class="s6">Break</div>
+                              <div class="s6">Lunch</div>
+                              <div class="s6">Offline</div>
+                              <div class="s6">ACW</div>
+                              <div class="s6">Consult</div>
+                              <div class="s6">Dialing</div>
+                              <div class="s6">On Hold</div>
+                              <div class="s6">Inbound</div>
+                              <div class="s6">Outbound</div>
+
+                              <div class="s6">Internal</div>
+                              <div class="s6">Ringing</div>
+                              <div class="s6">Logged Out</div>
+                              <div class="s6">% Ready</div>
+                              <div class="s6">% Not Ready</div>
+
+                              <div class="s6">% Inbound</div>
+                              <div class="s6">Working</div>
+                        </div>
+
+                      </iron-accordion>
+                    </iron-accordions>
+
+                  </div>
+
+                  <div class="card-actions">
+                    <paper-button>Share</paper-button>
+                    <paper-button>Explore!</paper-button>
+                    <star-rating rate="4"></star-rating>
+                  </div>
+
+                </paper-card>
+
+              </div>
+
+                <div class="xs12 s6 m4 l3" style="padding-bottom:25px">
+
+                <paper-card>
+
+                  <paper-toolbar style="background:#e05f98">
+                      <div title><b>Agent Group Status</b><br>
+                      <i>Refresh rate - 60s / Regular</i></div>
+                  </paper-toolbar>
+
+                 <div class="container">
+                     <paper-chip single-line>
+                      <iron-icon slot="icon" icon="avatars:avatar-1"></iron-icon>
+                      <div slot="label">Agent Group</div>
+                    </paper-chip>
+                    <paper-chip single-line>
+                      <iron-icon slot="icon" icon="avatars:avatar-1"></iron-icon>
+                      <div slot="label">Place Group</div>
+                    </paper-chip>
+                  </div>
+
+                  <div class="card-content">
+                    Agents are provided logins or devices and are assigned to media that match their skills. With this report, the supervisor can ensure the agents are logged in where they should be and managing the media for which they are responsible.
+
+                    <iron-accordions id="nested">
+                      <iron-accordion>
+                        <h3 header>Available Statistics <iron-icon icon="icons:info"></iron-icon></h3>
+
+                        <div class="horizontal layout wrap">
+
+                              <div class="s6">Logged In</div>
+                              <div class="s6">Ready</div>
+                              <div class="s6">Not Ready</div>
+                              <div class="s6">Break</div>
+                              <div class="s6">Lunch</div>
+                              <div class="s6">Offline</div>
+                              <div class="s6">ACW</div>
+                              <div class="s6">Consult</div>
+                              <div class="s6">Dialing</div>
+                              <div class="s6">On Hold</div>
+                              <div class="s6">Inbound</div>
+                              <div class="s6">Outbound</div>
+
+                              <div class="s6">Internal</div>
+                              <div class="s6">Ringing</div>
+                              <div class="s6">Logged Out</div>
+                              <div class="s6">% Ready</div>
+                              <div class="s6">% Not Ready</div>
+
+                              <div class="s6">% Inbound</div>
+                              <div class="s6">Working</div>
+                        </div>
+
+                      </iron-accordion>
+                    </iron-accordions>
+
+                  </div>
+
+                  <div class="card-actions">
+                    <paper-button>Share</paper-button>
+                    <paper-button>Explore!</paper-button>
+                    <star-rating rate="4"></star-rating>
+                  </div>
+
+                </paper-card>
+
+              </div>
+
+                <div class="xs12 s6 m4 l3" style="padding-bottom:25px">
+
+                <paper-card>
+
+                  <paper-toolbar style="background:#e05f98">
+                      <div title><b>Agent Group Status</b><br>
+                      <i>Refresh rate - 60s / Regular</i></div>
+                  </paper-toolbar>
+
+                 <div class="container">
+                     <paper-chip single-line>
+                      <iron-icon slot="icon" icon="avatars:avatar-1"></iron-icon>
+                      <div slot="label">Agent Group</div>
+                    </paper-chip>
+                    <paper-chip single-line>
+                      <iron-icon slot="icon" icon="avatars:avatar-1"></iron-icon>
+                      <div slot="label">Place Group</div>
+                    </paper-chip>
+                  </div>
+
+                  <div class="card-content">
+                    Agents are provided logins or devices and are assigned to media that match their skills. With this report, the supervisor can ensure the agents are logged in where they should be and managing the media for which they are responsible.
+
+                    <iron-accordions id="nested">
+                      <iron-accordion>
+                        <h3 header>Available Statistics <iron-icon icon="icons:info"></iron-icon></h3>
+
+                        <div class="horizontal layout wrap">
+
+                              <div class="s6">Logged In</div>
+                              <div class="s6">Ready</div>
+                              <div class="s6">Not Ready</div>
+                              <div class="s6">Break</div>
+                              <div class="s6">Lunch</div>
+                              <div class="s6">Offline</div>
+                              <div class="s6">ACW</div>
+                              <div class="s6">Consult</div>
+                              <div class="s6">Dialing</div>
+                              <div class="s6">On Hold</div>
+                              <div class="s6">Inbound</div>
+                              <div class="s6">Outbound</div>
+
+                              <div class="s6">Internal</div>
+                              <div class="s6">Ringing</div>
+                              <div class="s6">Logged Out</div>
+                              <div class="s6">% Ready</div>
+                              <div class="s6">% Not Ready</div>
+
+                              <div class="s6">% Inbound</div>
+                              <div class="s6">Working</div>
+                        </div>
+
+                      </iron-accordion>
+                    </iron-accordions>
+
+                  </div>
+
+                  <div class="card-actions">
+                    <paper-button>Share</paper-button>
+                    <paper-button>Explore!</paper-button>
+                    <star-rating rate="4"></star-rating>
+                  </div>
+
+                </paper-card>
+
+              </div>
+          </iron-grid>
+
+
+
+
+  </template>
+
+
+  <script>
+    Polymer({
+      is: 'my-view2',
+
+      properties: {
+        wwf: {
+          type: Array, // Available property types are String, Number, Boolean, Array, and Object
+          value: function () { return [
+            {name:'Amur Leopard', scientificName:'Panthera pardus orientalis', status:'Critically Endangered'},
+            {name:'Black Rhino', scientificName:'Diceros bicornis', status:'Critically Endangered'},
+            {name:'Cross River Gorilla', scientificName:'Gorilla gorilla diehli', status:'Critically Endangered'},
+            {name:'Hawksbill Turtle', scientificName:'Eretmochelys imbricata', status:'Critically Endangered'},
+            {name:'Javan Rhino', scientificName:'Rhinoceros sondaicus', status:'Critically Endangered'},
+            {name:'Leatherback Turtle', scientificName:'Dermochelys coriacea', status:'Critically Endangered'},
+            {name:'Mountain Gorilla', scientificName:'Gorilla beringei beringei', status:'Critically Endangered'},
+            {name:'Pangolin', scientificName:'', status:'Critically Endangered'},
+            {name:'Saola', scientificName:'Pseudoryx nghetinhensis', status:'Critically Endangered'},
+            {name:'South China Tiger', scientificName:'Panthera tigris amoyensis', status:'Critically Endangered'},
+            {name:'Sumatran Elephant', scientificName:'Elephas maximus sumatranus', status:'Critically Endangered'},
+            {name:'Sumatran Orangutan', scientificName:'Pongo abelii', status:'Critically Endangered'},
+            {name:'Sumatran Rhino', scientificName:'Dicerorhinus sumatrensis', status:'Critically Endangered'},
+            {name:'Sumatran Tiger', scientificName:'Panthera tigris sumatrae', status:'Critically Endangered'},
+            {name:'Vaquita', scientificName:'Phocoena sinus', status:'Critically Endangered'},
+            {name:'Western Lowland Gorilla', scientificName:'Gorilla gorilla gorilla', status:'Critically Endangered'},
+            {name:'Yangtze Finless Porpoise', scientificName:'Neophocaena asiaeorientalis ssp. asiaeorientalis', status:'Critically Endangered'},
+            {name:'African Wild Dog', scientificName:'Lycaon pictus', status:'Endangered'},
+            {name:'Amur Tiger', scientificName:'Panthera tigris altaica', status:'Endangered'},
+            {name:'Asian Elephant', scientificName:'Elephas maximus indicus', status:'Endangered'},
+            {name:'Bengal Tiger', scientificName:'Panthera tigris tigris', status:'Endangered'},
+            {name:'Black Spider Monkey', scientificName:'Ateles paniscus', status:'Endangered'},
+            {name:'Black-footed Ferret', scientificName:'Mustela nigripes', status:'Endangered'},
+            {name:'Blue Whale', scientificName:'Balaenoptera musculus', status:'Endangered'},
+            {name:'Bluefin Tuna', scientificName:'Thunnus spp', status:'Endangered'},
+            {name:'Bonobo', scientificName:'Pan paniscus', status:'Endangered'},
+            {name:'Bornean Orangutan', scientificName:'Pongo pygmaeus', status:'Endangered'},
+            {name:'Borneo Pygmy Elephant', scientificName:'Elephas maximus borneensis', status:'Endangered'},
+            {name:'Chimpanzee', scientificName:'Pan troglodytes', status:'Endangered'},
+            {name:'Eastern Lowland Gorilla', scientificName:'Gorilla beringei graueri', status:'Endangered'},
+            {name:'Fin Whale', scientificName:'Balaenoptera physalus', status:'Endangered'},
+            {name:'Galápagos Penguin', scientificName:'Spheniscus mendiculus', status:'Endangered'},
+            {name:'Ganges River Dolphin', scientificName:'Platanista gangetica gangetica', status:'Endangered'},
+            {name:'Giant Panda', scientificName:'Ailuropoda melanoleuca', status:'Endangered'},
+            {name:'Green Turtle', scientificName:'Chelonia mydas', status:'Endangered'},
+            {name:'Hector\'s Dolphin', scientificName:'Cephalorhynchus hectori', status:'Endangered'},
+            {name:'Humphead Wrasse', scientificName:'Cheilinus undulatus', status:'Endangered'},
+            {name:'Indian Elephant', scientificName:'Elephas maximus indicus', status:'Endangered'},
+            {name:'Indochinese Tiger', scientificName:'Panthera tigris corbetti', status:'Endangered'},
+            {name:'Indus River Dolphin', scientificName:'Platanista minor', status:'Endangered'},
+            {name:'Loggerhead Turtle', scientificName:'Caretta caretta', status:'Endangered'},
+            {name:'Malayan Tiger', scientificName:'Panthera tigris jacksoni', status:'Endangered'},
+            {name:'North Atlantic Right Whale', scientificName:'Eubalaena glacialis', status:'Endangered'},
+            {name:'Orangutan', scientificName:'Pongo abelii, Pongo pygmaeus', status:'Endangered'},
+            {name:'Sea Lions', scientificName:'Zalophus wollebaeki', status:'Endangered'},
+            {name:'Sei Whale', scientificName:'Balaenoptera borealis', status:'Endangered'},
+            {name:'Snow Leopard', scientificName:'Panthera uncia', status:'Endangered'},
+            {name:'Sri Lankan Elephant', scientificName:'Elephas maximus maximus', status:'Endangered'},
+            {name:'Tiger', scientificName:'Panthera tigris', status:'Endangered'},
+            {name:'Whale', scientificName:'Balaenoptera, Balaena, Eschrichtius, and Eubalaen', status:'Endangered'},
+            {name:'African Elephant', scientificName:'Loxodonta africana', status:'Vulnerable'},
+            {name:'Bigeye Tuna', scientificName:'Thunnus obesus', status:'Vulnerable'},
+            {name:'Dugong', scientificName:'Dugong dugon', status:'Vulnerable'},
+            {name:'Forest Elephant', scientificName:'', status:'Vulnerable'},
+            {name:'Giant Tortoise', scientificName:'', status:'Vulnerable'},
+            {name:'Great White Shark', scientificName:'Carcharodon carcharias', status:'Vulnerable'},
+            {name:'Greater One-Horned Rhino', scientificName:'Rhinoceros unicornis', status:'Vulnerable'},
+            {name:'Irrawaddy Dolphin', scientificName:'Orcaella brevirostris', status:'Vulnerable'},
+            {name:'Marine Iguana', scientificName:'Amblyrhynchus cristatus', status:'Vulnerable'},
+            {name:'Olive Ridley Turtle', scientificName:'Lepidochelys olivacea', status:'Vulnerable'},
+            {name:'Polar Bear', scientificName:'Ursus maritimus', status:'Vulnerable'},
+            {name:'Red Panda', scientificName:'Ailurus fulgens', status:'Vulnerable'},
+            {name:'Savanna Elephant', scientificName:'Loxodonta africana africana', status:'Vulnerable'},
+            {name:'Southern rockhopper penguin', scientificName:'Eudyptes chrysocome', status:'Vulnerable'},
+            {name:'Whale Shark', scientificName:'Rhincodon typus', status:'Vulnerable'},
+            {name:'Albacore Tuna', scientificName:'Thunnus alalunga', status:'Near Threatened'},
+            {name:'Beluga', scientificName:'Delphinapterus leucas', status:'Near Threatened'},
+            {name:'Greater Sage-Grouse', scientificName:'Centrocercus urophasianus', status:'Near Threatened'},
+            {name:'Jaguar', scientificName:'Panthera onca', status:'Near Threatened'},
+            {name:'Monarch Butterfly', scientificName:'Danaus plexippus', status:'Near Threatened'},
+            {name:'Mountain Plover', scientificName:'Charadrius montanus', status:'Near Threatened'},
+            {name:'Narwhal', scientificName:'Monodon monoceros', status:'Near Threatened'},
+            {name:'Plains Bison', scientificName:'Bison bison bison', status:'Near Threatened'},
+            {name:'White Rhino', scientificName:'Ceratotherium simum', status:'Near Threatened'},
+            {name:'Yellowfin Tuna', scientificName:'Thunnus albacares', status:'Near Threatened'},
+            {name:'Arctic Fox', scientificName:'Vulpes lagopus', status:'Least Concern'},
+            {name:'Arctic Wolf', scientificName:'Canis lupus arctos', status:'Least Concern'},
+            {name:'Bowhead Whale', scientificName:'Balaena mysticetus', status:'Least Concern'},
+            {name:'Brown Bear', scientificName:'Ursus arctos', status:'Least Concern'},
+            {name:'Common Bottlenose Dolphin', scientificName:'', status:'Least Concern'},
+            {name:'Gray Whale', scientificName:'Eschrichtius robustus', status:'Least Concern'},
+            {name:'Macaw', scientificName:'Ara ararauna', status:'Least Concern'},
+            {name:'Pronghorn', scientificName:'Antilocarpa americana', status:'Least Concern'},
+            {name:'Skipjack Tuna', scientificName:'Katsuwonus pelamis', status:'Least Concern'},
+            {name:'Swift Fox', scientificName:'Vulpes velox', status:'Least Concern'},
+            {name:'Amazon River Dolphin', scientificName:' Name Inia geoffrensis', status:''},
+            {name:'Dolphins and Porpoises', scientificName:'', status:''},
+            {name:'Elephant', scientificName:'', status:''},
+            {name:'Gorilla', scientificName:'Gorilla gorilla and Gorilla beringei', status:''},
+            {name:'Pacific Salmon', scientificName:'', status:''},
+            {name:'Penguin', scientificName:'Spheniscidae', status:''},
+            {name:'Poison Dart Frog', scientificName:'Dendrobates species', status:''},
+            {name:'Rhino', scientificName:'   '},
+            {name:'Sea Turtle', scientificName:'Cheloniidae and Dermochelyidae families', status:''},
+            {name:'Seals', scientificName:'', status:''},
+            {name:'Shark', scientificName:'', status:''},
+            {name:'Sloth', scientificName:'', status:''},
+            {name:'Tree Kangaroo', scientificName:'Dendrolagus sp.', status:''},
+            {name:'Tuna', scientificName:'Thunnus and Katsuwonus species', status:''}
+          ]
+        }
+      }
+    }
+  });
+  </script>
+</dom-module>

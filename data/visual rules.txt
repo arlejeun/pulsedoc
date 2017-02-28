@@ -1,0 +1,29 @@
+ Show summary templates (list of templates)
+
+ 	Attributes
+	 	- "name": "Agent Group Status - 1"
+	    - "description"
+	    - "refresh_interval"
+	    - "layout_type": "ltPCREGULAR"
+	    - "allowed_object_type": ["SObjectGroupAgents","SObjectGroupPlaces"]
+	    - list of Statistics - columns (type==ctSTATSERVER)
+	    - tags (search/facet)
+
+	Methods
+		- addTemplate
+		- removeTemplate
+		- editStatistics (add/edit/delete)
+
+
+Show summary widgets (list of widgets)
+
+	Attributes
+		- Same attributes as templates
+		- "requested_status": "stACTIVE" / stINACTIVE
+		- list of objects
+	    - type of widget
+	    - size
+	    - alerts
+
+	Methods
+		- setAlerts (statistc, object)
